@@ -9,22 +9,12 @@
 ```
 <!DOCTYPE html>  
 <html>  
-  <head>  
-    <title>Pathwalker</title>  
-    <link rel="preconnect" href="https://fonts.googleapis.com">  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap" rel="stylesheet">  
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@700&display=swap" rel="stylesheet">  
-    <style>  
-      body {  
-        font-family: 'Noto Sans Mono', monospace;  
-      }  
-    </style>  
-  </head>  
     <h1>Pathwalker</h1>  
-    <?php      if (isset($_GET['page'])) {  
-        echo file_get_contents("./page/".$_GET['page'].".php");  
-      }          ?>  
+    <?php      
+	    if (isset($_GET['page'])) {  
+	        echo file_get_contents("./page/".$_GET['page'].".php");  
+	    }          
+    ?>  
     <a href='?page=apple'>Apple</a>  
     <a href='?page=banana'>Banana</a>  
     <a href='?page=cappo'>Cappo</a>  
