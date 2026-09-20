@@ -6,7 +6,8 @@
 給了一個網址，點開來
 ![[W1-9_web.png|583]]
 ## 解題
-1. 觀察網頁
+1. 題目為 LFI（Local File Inclusion）
+2. 觀察網頁
 	- 點 Cappo 有提示："flag is in /var/www/html/flag.php"
 	- php 含有 `include`，一般網頁是讀出檔案內容但不執行，`include` 會把指定檔案當成 PHP 程式的一部分載入並執行
 2. 先嘗試 pathwalker 的做法，網址後面輸入 `?page=/../../../../../var/www/html/flag`，結果：
