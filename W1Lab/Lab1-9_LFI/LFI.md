@@ -19,7 +19,8 @@
    >- `file://`：用於訪問本地檔案系統，ex: `include('file:///etc/passwd');`
    >- `php://`：用於訪問各個輸入/輸出流
    >	- `php://input`：讀取 POST 請求中的原始資料
-   >	- `php://filter`：讀取檔案並進行轉換，ex: `include('php://filter/convert.base64-encode/resource=index.php');`
+   >	- `php://filter`：讀取檔案並進行轉換，ex: 
+   >	  `include('php://filter/convert.base64-encode/resource=index.php');` or 串很多種編碼，ex:  `filter/` 後加上 `read=string.rot13` 再接 `/convert.base ...` 
 >- `data://` ：引入經過資料流包裝的資料
 
 4. 要讀取網頁原始碼檔案 -> 後面輸入 
