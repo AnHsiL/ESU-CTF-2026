@@ -39,7 +39,7 @@
    - 上傳的檔案會存放於 `/var/www/html/upload/` 路徑
 1. 打開 Burp Suite 協助觀察檔案上傳下載資訊
 	1. Burp Suite 選 proxy 頁面 -> open a broswer
-	2. Burp Suite 提供的瀏覽器中輸入題目的網址並隨意上傳一個檔案
+	2. Burp Suite 提供的瀏覽器中輸入題目的網址並隨意上傳一個檔案，可以在 http history 看到：
 	   ![[W1-7_proxy.png|619]]![[W1-7_req&res.png|572]]
 	   可以在下方看到 request 和 response
 	3. 在 request 的地方按右鍵 -> send to repeater，可以將 request 複製一份編輯後重新送出
