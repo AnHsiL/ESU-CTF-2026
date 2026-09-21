@@ -3,7 +3,7 @@
 ## 題目
 
 **dig-waf 1**
-給了一個網址，跟 [[Dig]] 的長一樣，但前端多了限制
+給了一個網址，跟 [[W1Lab/Lab1-12_Dig/Dig]] 的長一樣，但前端多了限制
 ```php
  <?php if (isset($_POST['name'])) : ?>
 <p>                         
@@ -34,6 +34,7 @@
    >   - `<(command)`：
    >     ex: `cat <(printf 'hello')`中，會先執行 `printf 'hello'` 再執行 `cat`
    >   - `(command)`：括號內會在 subshell 中執行，但<mark style="background: #FFF3A3A6;">需要是獨立一個 command</mark>
+   >   - `` `command` ``：`$(command)` 的舊式寫法
    
    --> 嘗試 `$()`
 1. 輸入 `aaa' $(ls /)'`
