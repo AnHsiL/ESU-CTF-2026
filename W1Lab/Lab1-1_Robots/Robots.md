@@ -21,7 +21,7 @@
    ![[W1-1_rotate.png]]
    可以看到一個一直旋轉的 flag
 4. 按 `F12` 找到不會旋轉的 flag
-   ```
+   ```html
    <body>
     <h1>Nothing Here !</h1>
     <p class="rotating-box">CTF{robots_11541e464c511a93b4de845d}</p>

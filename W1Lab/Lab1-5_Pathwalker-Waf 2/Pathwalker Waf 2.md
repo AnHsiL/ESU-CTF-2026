@@ -6,7 +6,7 @@
 給了一個網址，點開來：
 ![[W1-3_web.png|500]]
 並附了跟上一題 [[Pathwalker]] 一樣網頁原始碼，但加了一些條件限制
-```
+```js
   </head>  
     <h1>Pathwalker</h1>  
     <?php
