@@ -46,8 +46,9 @@ if ($user && $user['password'] ==$password) {
    -> 發現直到 `SELECT 1, 2, 3` 才沒有報 syntax error 
    -> 總共有 3 個欄位
 3. 判斷欄位對應：
-   `$user = $stmt->fetch(PDO::FETCH_ASSOC);` 拿「查詢結果的第一筆」，為了避免 DB 裡面已經有這筆資料 -> 先故意讓原本查詢沒有結果 
-   --> `OR 1=1` 改 `AND 1=0`
+   為了避免 DB 裡面已經有這筆資料，使後面寫入資料的指令沒被執行 
+   -> 先故意讓 `UNION` 前的查詢沒有結果 
+   -> `OR 1=1` 改 `AND 1=0`
    `Username` 欄位輸入：
    ```SQL
    'AND 1=0 UNION SELECT 'AA', 'BB', 'CC';--'
