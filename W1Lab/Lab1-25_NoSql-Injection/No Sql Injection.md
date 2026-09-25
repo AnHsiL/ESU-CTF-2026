@@ -69,6 +69,12 @@ NoSQL（Not Only SQL）資料庫是一類非關聯型資料庫，不依賴固定
   db.collection.find({ status: { $in: ["A", "D"] } })
   ```
 - `$regex` - 選擇值與指定正規表示式相符的文件
+	- `^`：字串開頭，ex: `password` 以 "AAB" 開頭的
+	  ``` json
+	  "password": {
+			"$regex": "^AAB"
+		}
+	  ```
 ##### 範例
 - 在 JSON 訊息中，將查詢運算子（`"$ne":"invalid"`：所有不等於 "invalid" 的值）作為巢狀物件插入。例如， 
   ```json
