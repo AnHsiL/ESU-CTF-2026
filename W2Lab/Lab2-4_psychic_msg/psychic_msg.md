@@ -2,8 +2,7 @@
 
 ## 題目
 
-**Padding Oracle Attack**  
-psychic_msg  
+**psychic_msg  **  
 `nc 45.77.20.255 31003`
 
 並提供了 source code，簡化後：
