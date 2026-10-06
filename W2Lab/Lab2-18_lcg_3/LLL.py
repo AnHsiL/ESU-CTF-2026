@@ -80,8 +80,6 @@ for row in reduced.tolist():
 if X1 is None:
     raise ValueError("無法還原 X1")
 
-print("X1 =", X1)
-
 cur = X1
 for _ in range(16):
     cur = lcg(cur)
