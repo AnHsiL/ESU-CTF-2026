@@ -3,7 +3,7 @@
 ## 題目
 
 **dig-waf 1**
-給了一個網址，跟 [[W1Lab/Lab1-12_Dig/Dig]] 的長一樣，但前端多了限制
+給了一個網址，跟 [[Dig]] 的長一樣，但前端多了限制
 ```php
  <?php if (isset($_POST['name'])) : ?>
 <p>                         
