@@ -58,3 +58,39 @@ Analyze `sample09` and select one option from each group.
 
 
 ---
+
+# sample-10
+
+## 題目
+
+Analyze `sample10` and select one option from each group.
+
+| A: Algorithm                                                   | B:  Cycles (1 cycle = 2 half-rounds)                                      | C: Block / Key size                                                                                                                            |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| - A1: TEA           <br>- A2: XTEA<br>- A3: XXTEA<br>- A4: AES | - B1: 16 cycles<br>- B2: 32 cycles<br>- B3: 64 cycles<br>- B4: 128 cycles | - C1: 64-bit block / 128-bit key<br>- C2: 64-bit block / 256-bit key<br>- C3: 128-bit block / 128-bit key<br>- C4: 128-bit block / 256-bit key |
+
+## 解題
+1. 從程式碼看到，`a1 == 2` -> 兩個 word 
+   ```c
+   v5 = _byteswap_ulong(dest);
+   v6 = _byteswap_ulong(v10);
+   for ( i = 0; i != -957401312; v6 += (i + dword_4070[(i >> 11) & 3]) ^ (v5 + ((v5 >> 5) ^ (16 * v5))) ) {
+		v5 += (i + dword_4070[i & 3]) ^ (v6 + ((v6 >> 5) ^ (16 * v6)));
+		i -= 1640531527;
+	}
+   ```
+   - key index 跟 `sum` 的 bit 有關 -> XTEA
+1. cycle 數量
+   ```python
+	delta = 0xffffffff - 0x61C88647 + 0x01 # 2's complement
+	target = 0xC6EF3720
+	
+	for n in range(1, 100):
+	    if (delta * n) & 0xffffffff == target:
+	        print(n)
+	        break
+   ```
+   -> 32
+1. `v5`、`v6`使用 `_byteswap_ulong()` -> 各為 4 bytes，相加為 64 bit -> block = 64 bits
+2. key 為 `dword`，Double Word，佔 4 Bytes（32 bits），四把 -> 128 bits
+3. flag = `a2-b2-c1`
