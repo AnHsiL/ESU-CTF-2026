@@ -3,6 +3,8 @@
 
 給了一個網址，點開來：
 ![[W4-4_web.png|366]]
+### SSTI
+![[SSTI.png]]
 
 ---
 # SSTI-waf1
