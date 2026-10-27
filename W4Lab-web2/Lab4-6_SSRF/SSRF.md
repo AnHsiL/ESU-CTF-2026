@@ -106,3 +106,41 @@ def make_request():
    ![[W4-7_httpbin_redirect.png|557]]
 3. 輸入 `http://httpbin.dev/redirect-to?url=http://127.0.0.1/internal-only`
 4. flag = `CTF{y0u_4r3_r34lly_4_55rf_0p3n_r3d1r3c7_m4573r}`
+
+---
+# SSRF3
+
+## 題目
+
+```js
+@app.route("/mkreq", methods=["GET"])
+def make_request():
+    url = request.args.get("url")
+    host = urlparse(url).hostname
+    print(host)
+    if socket.gethostbyname(host) == "127.0.0.1":
+        return "badhacker"
+    return requests.get(url).text
+
+```
+
+## 解題
+1. 會先把 Hostname 或 Domain Name 轉換成對應的 IPv4 位址再比較 
+   -> 沒辦法用替換的方式
+2. 題目要求必須是 `127.0.0.1` ，但前面會過濾掉 `127.0.0.1`
+   -> 過濾時不是 `127.0.0.1`，後面是
+   -> DNS Rebinding 
+   >[!abstract] DNS Rebinding 
+   > 讓同一個攻擊者控制的網域在不同時間解析到不同 IP，從而誘導瀏覽器或服務端先通過安全檢查，再轉而存取內網或本地敏感位址
+   > -> 使 IP 在極短 TTL 快速切換
+   > **常見工具**：
+   > - **rbndr**：把兩個 IP 編進子域名，每次解析隨機回傳其中一個
+   >   格式：
+   >   ```js
+   >   <IP1>.<IP2>.rbndr.us
+   >   ```
+   >   e.g., 
+   >   `7f000001.8.8.8.8.rbndr.us` / `7f000001.08080808.rbndr.us`（十六進制）
+   > - **rebind.network**：類似的公共服務，提供隨機/ 可配置的 rebinding 域名，免去自建，適合快速驗證。
+3. 多次輸入 `http://7f000001.08080808.rbndr.us/internal-only` 使 IP 在 `8.8.8.8` 和 `127.0.0.1` 反覆恆跳，直到跳出 flag
+4. flag = `CTF{y0u_4r3_r34lly_dn5_r3b1nd_m4573r}`
