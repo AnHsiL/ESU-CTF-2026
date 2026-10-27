@@ -141,6 +141,7 @@ def make_request():
    >   ```
    >   e.g., 
    >   `7f000001.8.8.8.8.rbndr.us` / `7f000001.08080808.rbndr.us`（十六進制）
+   >   線上工具 https://lock.cmpxchg8b.com/rebinder.html
    > - **rebind.network**：類似的公共服務，提供隨機/ 可配置的 rebinding 域名，免去自建，適合快速驗證。
 3. 多次輸入 `http://7f000001.08080808.rbndr.us/internal-only` 使 IP 在 `8.8.8.8` 和 `127.0.0.1` 反覆恆跳，直到跳出 flag
 4. flag = `CTF{y0u_4r3_r34lly_dn5_r3b1nd_m4573r}`
