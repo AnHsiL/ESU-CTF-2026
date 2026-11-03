@@ -121,6 +121,6 @@
 ```js
 <base href="https://cdn.jsdelivr.net/gh/<GitHub帳號>/<Repository>@<Branch>/<檔案路徑>">
 
-<base href="https://cdn.jsdelivr.net/gh/AnHsiL/ESU-CTF-2026@main/W6Lab-web/Lab6-1_xss/static/script.js">
+<base href="https://cdn.jsdelivr.net/gh/AnHsiL/ESU-CTF-2026@main/">
 
 ```
