@@ -1,0 +1,4 @@
+# capacities = [1, 2, 4, 8, 16, 32] (bytes)
+capacity: 32
+sender: [Alice, true, "Labs are so many QQ"]
+receiver: [Bob, true]
