@@ -25,7 +25,7 @@ leak_info(primes)
 ```
 
 ### LLL
-LLL（Lenstra–Lenstra–Lovász）：把一組很亂、很長的格點基底，換成一組較短、接近正交的基底
+LLL（Lenstra–Lenstra–Lovász）：把一組很亂、很長的格點基底，換成一組較短、接近正交的基底，讓「係數很小、彼此有關係的整數解」更容易被找出來
 >[!abstract] 正交基底
 >![[Gram Schmidt.png|600]]
 
