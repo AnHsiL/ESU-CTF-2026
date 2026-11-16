@@ -115,17 +115,16 @@ print(f"Gift: {hashlib.md5(b'THJCC{'+flag.encode()+b'}').hexdigest()}")
 	B = A.LLL()
 	
 	# Gram-Schmidt
-	B_QQ = Matrix(QQ, B)
-	G, _ = B_QQ.gram_schmidt(orthonormal=False)
+	G, _ = B.gram_schmidt(orthonormal=False)
 	
 	# Babai nearest plane：找接近 target 的 lattice vector
-	y = vector(QQ, target)
-	v = vector(ZZ, [0]*18)
+	y = vector(QQ, target)   # 目前還沒被消掉的 target，y 初始值為 target，後續減掉
+	v = vector(ZZ, [0]*18)   # 累積最後找到的 lattice vector，一開始先是全 0
 	
 	for i in reversed(range(B.nrows())):
-	    c = ZZ(round((y * G[i]) / (G[i] * G[i])))
+	    c = ZZ(round((y*G[i]) / (G[i]*G[i]))) # `y` 在第 i 個 Gram-Schmidt 方向上，大約需要幾倍 B[i]
 	    v += c * B[i]
-	    y -= c * B_QQ[i]
+	    y -= c * B[i]
    ```
 1. 把 CVP 找到的 lattice vector v 前 16 維，還原成原本的 flag 小字元，再組合成完整 flag
    ```python

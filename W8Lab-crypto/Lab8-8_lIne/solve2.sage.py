@@ -60,29 +60,25 @@ target = vector(
 
 
 
-# CVP: LLL + Babai nearest planeLLL + Babai nearest plane
-
-
-
+# CVP: LLL + Babai nearest plane
 B = A.LLL()
 
 # Gram-Schmidt
-B_QQ = Matrix(QQ, B)
-G, _ = B_QQ.gram_schmidt(orthonormal=False)
+B = Matrix(QQ, B)   # B 是整數矩陣，但 Gram-Schmidt 結果通常不是整數 -> 先轉成有理數矩陣
+G, _ = B.gram_schmidt(orthonormal=False)
 
 # Babai nearest plane：找接近 target 的 lattice vector
-y = vector(QQ, target)
-v = vector(ZZ, [_sage_const_0 ]*_sage_const_18 )
+y = vector(QQ, target)   # 目前還沒被消掉的 target，y 初始值為 target，後續減掉
+v = vector(ZZ, [_sage_const_0 ]*_sage_const_18 )   # 累積最後找到的 lattice vector，一開始先是全 0
 
 for i in reversed(range(B.nrows())):
-    c = ZZ(round((y * G[i]) / (G[i] * G[i])))
+    c = ZZ(round((y * G[i]) / (G[i] * G[i])))     # `y` 在第 i 個 Gram-Schmidt 方向上，大約需要幾倍 B[i]
     v += c * B[i]
-    y -= c * B_QQ[i]
+    y -= c * B[i]
 
 
 #  recover flag part
 flag_part = [v[i] // SCALE for i in range(_sage_const_16 )]
-
 
 if all(_sage_const_0  <= x <= _sage_const_15  for x in flag_part):
     flag = "".join(hex(x)[_sage_const_2 :] for x in flag_part)
